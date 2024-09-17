@@ -19,6 +19,7 @@ export default function Favorites() {
     const changeSchedulesToFavorite = async() => {
         const response = await axios.get(
           "http://localhost:3001/schedules/favorite",
+          // "https://my-capstone-backend-02def2333679.herokuapp.com/schedules/favorite",
           { headers: { Authorization: localStorage.getItem("token")} }
         );
         setAppState((appState) => ({

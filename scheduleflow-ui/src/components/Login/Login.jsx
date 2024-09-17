@@ -21,7 +21,10 @@ export default function Login({ appState, setAppState }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const result = await axios.post("http://localhost:3001/auth/login", form);
+      const result = await axios.post(
+        "http://localhost:3001/auth/login", 
+        // "https://my-capstone-backend-02def2333679.herokuapp.com/auth/login", 
+        form);
       setErrorMessage("");
       setForm({ email: "", password: "" });
       setAppState((appState) => ({ ...appState, ...result.data }));

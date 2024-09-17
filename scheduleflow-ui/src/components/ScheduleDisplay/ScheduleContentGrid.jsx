@@ -45,13 +45,15 @@ export default function ScheduleContentGrid() {
   if (!(appState.courses && appState.schedules))
     setAppState({
       ...appState,
-      courses: JSON.parse(localStorage.getItem("courses")),
-      schedules: JSON.parse(localStorage.getItem("schedules")),
+      courses: JSON.parse(localStorage.getItem("courses")) || [],
+      schedules: JSON.parse(localStorage.getItem("schedules")) || [],
     });
   const schedules = favState.showingFavorites ? appState.favorites : appState.schedules;
+
   useEffect(() => {
     setAppState(appState => ({...appState, currScheduleId: appState.currScheduleId >= schedules.length - 1 ? 0 : appState.currScheduleId}))
   }, [])
+
   // if async setSappState has not finished setting the state
   const currentSchedule = schedules[appState.currScheduleId];
   const timeSlotDays = getTimeSlots(currentSchedule?.schedule);
@@ -61,6 +63,7 @@ export default function ScheduleContentGrid() {
     try {
       const result = await axios.post(
         "http://localhost:3001/schedules/favorite",
+        // "https://my-capstone-backend-02def2333679.herokuapp.com/schedules/favorite",
         {...currentSchedule, name: favData.favoriteName},
         { headers: { Authorization: appState.token } }
       );
@@ -109,6 +112,7 @@ export default function ScheduleContentGrid() {
     try {
       const result = await axios.delete(
         "http://localhost:3001/schedules/favorite/" + schedules[appState.currScheduleId].name,
+        // "https://my-capstone-backend-02def2333679.herokuapp.com/schedules/favorite/" + schedules[appState.currScheduleId].name,
         { headers: { Authorization: appState.token } }
       );
       // if not addded then very likely we have added the schedule before

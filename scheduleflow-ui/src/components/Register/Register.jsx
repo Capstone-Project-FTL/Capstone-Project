@@ -41,6 +41,7 @@ export default function Register({ appState, setAppState }) {
     try {
       const result = await axios.post(
         "http://localhost:3001/auth/register",
+        // "https://my-capstone-backend-02def2333679.herokuapp.com/auth/register",
         form
       );
       setErrorMessage("");
